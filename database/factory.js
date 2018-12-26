@@ -27,7 +27,7 @@ Factory.blueprint('Oumie/Models/User', async (faker) => {
         name: faker.first(),
         surname: faker.last(),
         mobile: faker.phone({formatted:false}),
-        password: await Hash.make('Password')
+        password: 'Password'
     };
 });
 

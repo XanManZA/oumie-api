@@ -19,6 +19,7 @@ const providers = [
   '@adonisjs/cors/providers/CorsProvider',
   '@adonisjs/lucid/providers/LucidProvider',
   '@adonisjs/drive/providers/DriveProvider',
+  '@adonisjs/validator/providers/ValidatorProvider',
 
   // Oumie External Services
   path.join(__dirname, '..', 'app', '/Services/Firebase/FirebaseProvider'),
@@ -27,6 +28,8 @@ const providers = [
   path.join(__dirname, '..', 'app', '/Models/Repositories/RepositoryProvider'),
   // Oumie Business Logic Services
   path.join(__dirname, '..', 'app', '/Services/Oumie/Users/UserProvider'),
+  // Custom Extensions
+  path.join(__dirname, '..', 'app', '/Validators/ValidatorExtensions'),
 ]
 
 /*

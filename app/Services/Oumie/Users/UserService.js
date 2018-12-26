@@ -13,7 +13,9 @@ class UserService {
     }
 
     async create(data) {
-        Logger.info(`Creating new User ${data.email}...`);
+        Logger.info(`Creating new User...`, {
+            fullName: `${data.name} ${data.surname}`
+        });
         return await this.users.create(data);
     }
 }

@@ -67,9 +67,9 @@ module.exports = {
   */
   jwt: {
     serializer: 'lucid',
-    model: 'App/Models/User',
+    model: 'Oumie/Models/User',
     scheme: 'jwt',
-    uid: 'email',
+    uid: 'mobile',
     password: 'password',
     options: {
       secret: Env.get('APP_KEY')
@@ -86,9 +86,9 @@ module.exports = {
   */
   api: {
     serializer: 'lucid',
-    model: 'App/Models/User',
+    model: 'Oumie/Models/User',
     scheme: 'api',
-    uid: 'email',
+    uid: 'mobile',
     password: 'password'
   }
 }

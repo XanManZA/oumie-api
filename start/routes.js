@@ -15,7 +15,22 @@
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
+const User = use('Oumie/Models/User')
 
-Route.get('/', () => {
-  return { greeting: 'Hello world in JSON Xanimals' }
+Route.get('/', async () => {
+	return `Currently ${(await User.getCount())} Oumie happiness collaborators`
 })
+
+// Authentication
+Route.group(() => {
+	// Login
+	Route.post('login', 'Oumie/Api/Http/Controllers/Auth/AuthController.login').as('auth.login');
+	// Register
+	Route.post('register', 'Oumie/Api/Http/Controllers/Auth/AuthController.register')
+		.as('auth.register')
+		.validator('RegisterUser');
+	// Self
+	Route.get('self', 'Oumie/Api/Http/Controllers/AuthController.self')
+		.as('user.self')
+		.middleware('auth');
+}).prefix('auth');
