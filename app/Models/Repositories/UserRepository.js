@@ -5,14 +5,11 @@ const _ = use('lodash')
 
 class UserRepository {
     async retrieveRandom() {
-        let users = await User.all();
-
-        return _.sample(users.toJSON());
+        let ids = await User.ids();
+        return await User.find(_.sample(ids));
     }
 
-    async create(data) {
-        let { name, surname, email, password } = data;
-
+    async create({ name, surname, email, password } ) {
         return await User.create({ name, surname, email, password });
     }
 }
