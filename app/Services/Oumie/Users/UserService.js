@@ -5,7 +5,7 @@ const Logger = use('Logger')
 class UserService {
     constructor() {
         // protected
-        this.users = use('LittleBid/Models/UserRepository');
+        this.users = use('Oumie/Models/UserRepository');
     }
 
     async getRandom() {
@@ -14,7 +14,6 @@ class UserService {
 
     async create(data) {
         Logger.info(`Creating new User ${data.email}...`);
-
         return await this.users.create(data);
     }
 }
