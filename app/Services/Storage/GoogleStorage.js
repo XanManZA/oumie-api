@@ -16,7 +16,6 @@ class GoogleStorage {
      * @return {Object}
      */
     storage() {
-        console.log(this.config.get(`services.google.storage.bucket`));
         return this.client.bucket(this.config.get(`services.google.storage.bucket`));
     }
 

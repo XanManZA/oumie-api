@@ -3,6 +3,7 @@
 const Factory = use('Factory')
 const Hash = use('Hash')
 const User = use('Oumie/Models/User')
+const Beneficiary = use ('Oumie/Models/Beneficiary')
 const Drive = use('Drive')
 const Storage = use('Oumie/Storage')
 const Helpers = use('Helpers');
@@ -21,6 +22,24 @@ const _ = use('lodash')
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 
+// Benificaries
+Factory.blueprint('Oumie/Models/Beneficiary', async (faker) => {
+    let ids = await User.ids();
+    let user = {};
+
+    // Get an associated user, if there are none then create one
+    if (ids.length)
+        user = await User.find(_.sample(ids));
+    else
+        user = await Factory.model('Oumie/Models/User').create();
+
+    return {
+        name: faker.first(),
+        mobile: faker.phone({formatted:false}),
+        user_id: user.id
+    };
+});
+
 // Users
 Factory.blueprint('Oumie/Models/User', async (faker) => {
     return {
@@ -33,21 +52,21 @@ Factory.blueprint('Oumie/Models/User', async (faker) => {
 
 // Soundclips
 Factory.blueprint('Oumie/Models/Soundclip', async (faker) => {
-    let ids = await User.ids();
-    let user = {};
+    let ids = await Beneficiary.ids();
+    let beneficiary = {};
     let name = ``;
 
-    // Get an associated user, if there are no users then create one
+    // Get an associated benificiary, if there are none then create one
     if (ids.length)
-        user = await User.find(_.sample(ids));
+        beneficiary = await Beneficiary.find(_.sample(ids));
     else
-        user = await Factory.model('Oumie/Models/User').create();
+        beneficiary = await Factory.model('Oumie/Models/Beneficiary').create();
     
-    name = `soundclips/` + Date.now() + `_${user.id}.m4a`;
+    name = `soundclips/` + Date.now() + `_${beneficiary.id}.m4a`;
     await Storage.upload(`${Helpers.tmpPath()}/Recording.m4a`, name);
 
     return {
-        user_id: user.id,
+        beneficiary_id: beneficiary.id,
         url: name
     };
 });

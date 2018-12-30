@@ -3,8 +3,15 @@
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema')
 
-class SoundclipUserSchema extends Schema {
+class DropSoundclipUserSchema extends Schema {
 	async up () {
+		let exists = await this.hasTable('soundclip_users');
+
+		if (exists)
+			this.drop('soundclip_users')
+	}
+
+	async down () {
 		let exists = await this.hasTable('soundclip_users');
 
 		if (!exists)
@@ -14,13 +21,6 @@ class SoundclipUserSchema extends Schema {
 				table.timestamps()
 			})
 	}
-
-	async down () {
-		let exists = await this.hasTable('soundclip_users');
-
-		if (exists)
-			this.drop('soundclip_users')
-	}
 }
 
-module.exports = SoundclipUserSchema
+module.exports = DropSoundclipUserSchema

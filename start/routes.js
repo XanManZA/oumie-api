@@ -24,7 +24,9 @@ Route.get('/', async () => {
 // Authentication
 Route.group(() => {
 	// Login
-	Route.post('login', 'Oumie/Api/Http/Controllers/Auth/AuthController.login').as('auth.login');
+	Route.post('login', 'Oumie/Api/Http/Controllers/Auth/AuthController.login')
+		.as('auth.login')
+		.validator('Login');
 	// Register
 	Route.post('register', 'Oumie/Api/Http/Controllers/Auth/AuthController.register')
 		.as('auth.register')

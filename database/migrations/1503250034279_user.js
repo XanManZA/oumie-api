@@ -4,20 +4,26 @@
 const Schema = use('Schema')
 
 class UserSchema extends Schema {
-  up () {
-    this.createIfNotExists('users', (table) => {
-      table.increments()
-      table.string('name', 252).notNullable()
-      table.string('surname', 252).notNullable()
-      table.string('mobile', 15).notNullable().unique()
-      table.string('password', 60).notNullable()
-      table.timestamps()
-    })
-  }
+	async up () {
+		let exists = await this.hasTable('users');
 
-  down () {
-    this.dropIfExists('users')
-  }
+		if (!exists)
+			this.create('users', (table) => {
+				table.increments()
+				table.string('name', 252).notNullable()
+				table.string('surname', 252).notNullable()
+				table.string('mobile', 15).notNullable().unique()
+				table.string('password', 60).notNullable()
+				table.timestamps()
+			})
+	}
+
+	async down () {
+		let exists = await this.hasTable('users');
+
+		if (exists)
+			this.drop('users')
+	}
 }
 
 module.exports = UserSchema
