@@ -30,7 +30,7 @@ Route.group(() => {
 		.as('auth.register')
 		.validator('RegisterUser');
 	// Self
-	Route.get('self', 'Oumie/Api/Http/Controllers/AuthController.self')
+	Route.get('self', 'Oumie/Api/Http/Controllers/Auth/AuthController.self')
 		.as('user.self')
 		.middleware('auth');
 }).prefix('auth');
