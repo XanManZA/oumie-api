@@ -26,13 +26,16 @@ Route.group(() => {
 	// Login
 	Route.post('login', 'Oumie/Api/Http/Controllers/Auth/AuthController.login')
 		.as('auth.login')
-		.validator('Login');
+		.validator('Login')
 	// Register
 	Route.post('register', 'Oumie/Api/Http/Controllers/Auth/AuthController.register')
 		.as('auth.register')
-		.validator('RegisterUser');
+		.validator('RegisterUser')
 	// Self
 	Route.get('self', 'Oumie/Api/Http/Controllers/Auth/AuthController.self')
 		.as('user.self')
-		.middleware('auth');
-}).prefix('auth');
+		.middleware('auth')
+}).prefix('auth')
+
+// Beneficiaries
+Route.resource('beneficiary', 'Oumie/Api/Http/Controllers/Beneficiary/BeneficiaryController').apiOnly()

@@ -27,7 +27,8 @@ const providers = [
   // Oumie Data Objects
   path.join(__dirname, '..', 'app', '/Models/Repositories/RepositoryProvider'),
   // Oumie Business Logic Services
-  path.join(__dirname, '..', 'app', '/Services/Oumie/Users/UserProvider'),
+  path.join(__dirname, '..', 'app', '/Services/Oumie/User/UserProvider'),
+  path.join(__dirname, '..', 'app', '/Services/Oumie/Beneficiary/BeneficiaryProvider'),
   // Custom Extensions
   path.join(__dirname, '..', 'app', '/Validators/ValidatorExtensions'),
 ]

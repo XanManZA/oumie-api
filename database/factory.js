@@ -23,7 +23,7 @@ const _ = use('lodash')
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 
 // Benificaries
-Factory.blueprint('Oumie/Models/Beneficiary', async (faker) => {
+Factory.blueprint('Oumie/Models/Beneficiary', async (faker, i, data) => {
     let ids = await User.ids();
     let user = {};
 
@@ -36,7 +36,7 @@ Factory.blueprint('Oumie/Models/Beneficiary', async (faker) => {
     return {
         name: faker.first(),
         mobile: faker.phone({formatted:false}),
-        user_id: user.id
+        user_id: data.user_id || user.id
     };
 });
 
