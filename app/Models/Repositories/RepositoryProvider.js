@@ -10,7 +10,10 @@ class RepositoryProvider extends ServiceProvider {
 		});
 		this.app.singleton('Oumie/Models/BeneficiaryRepository', () => {
 			return new (require('./BeneficiaryRepository'));
-		})
+		});
+		this.app.singleton('Oumie/Models/SoundclipRepository', () => {
+			return new (require('./SoundclipRepository'));
+		});
 	}
 
 	boot () {

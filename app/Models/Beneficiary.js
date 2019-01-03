@@ -13,6 +13,10 @@ class Beneficiary extends Model {
         return ['readStatus']
     }
 
+    static get hidden() {
+		return ['mobile'];
+	}
+
     getReadStatus({ status }) {
         switch(status) {
             case this.constructor.STATUS_ADDED:
@@ -24,6 +28,17 @@ class Beneficiary extends Model {
             case this.constructor.STATUS_INACTIVE:
                 return 'Inactive';
         }
+    }
+
+    /**
+	 * Beneficiary relationship
+	 *
+	 * @method beneficiary
+	 *
+	 * @return {Object}
+	 */
+    soundclips() {
+        return this.hasMany('Oumie/Models/Soundclip');
     }
 }
 

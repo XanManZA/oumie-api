@@ -51,7 +51,7 @@ Factory.blueprint('Oumie/Models/User', async (faker) => {
 });
 
 // Soundclips
-Factory.blueprint('Oumie/Models/Soundclip', async (faker) => {
+Factory.blueprint('Oumie/Models/Soundclip', async (faker, i, data) => {
     let ids = await Beneficiary.ids();
     let beneficiary = {};
     let name = ``;
@@ -62,11 +62,11 @@ Factory.blueprint('Oumie/Models/Soundclip', async (faker) => {
     else
         beneficiary = await Factory.model('Oumie/Models/Beneficiary').create();
     
-    name = `soundclips/` + Date.now() + `_${beneficiary.id}.m4a`;
+    name = `soundclips/` + Date.now() + `_${data.beneficiary_id || beneficiary.id}.m4a`;
     await Storage.upload(`${Helpers.tmpPath()}/Recording.m4a`, name);
 
     return {
-        beneficiary_id: beneficiary.id,
+        beneficiary_id: data.beneficiary_id || beneficiary.id,
         url: name
     };
 });

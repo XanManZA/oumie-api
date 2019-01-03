@@ -1,7 +1,5 @@
 'use strict'
 
-const Logger = use('Logger')
-
 class BeneficiaryController {
     constructor() {
         // protected
@@ -9,7 +7,12 @@ class BeneficiaryController {
     }
 
     async show({ params }) {
-        return (await this.beneficiaryService.get(params.id)).toJSON();
+        let beneficiary = await this.beneficiaryService.get(params.id);
+
+        return {
+            ...(beneficiary.toJSON()),
+            mobile: beneficiary.mobile
+        }
     }
 
     async index({ auth }) {

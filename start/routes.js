@@ -38,4 +38,15 @@ Route.group(() => {
 }).prefix('auth')
 
 // Beneficiaries
-Route.resource('beneficiary', 'Oumie/Api/Http/Controllers/Beneficiary/BeneficiaryController').apiOnly()
+Route.resource('beneficiary', 'Oumie/Api/Http/Controllers/Beneficiary/BeneficiaryController')
+	.apiOnly()
+	.middleware(new Map([
+		[['index', 'show'], ['auth']]
+	]))
+
+// Soundclips
+Route.resource('soundclip', 'Oumie/Api/Http/Controllers/Soundclip/SoundclipController')
+	.apiOnly()
+	.middleware(new Map([
+		[['index'], ['auth', 'policy-soundclip:index']]
+	]))

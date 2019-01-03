@@ -1,7 +1,7 @@
 'use strict'
 
 const Logger = use('Logger')
-const User = use('Oumie/Models/User')
+const Beneficiary = use('Oumie/Models/Beneficiary')
 
 class BeneficiaryService {
     constructor() {
@@ -10,7 +10,7 @@ class BeneficiaryService {
     }
 
     async get(id) {
-        return await User.find(id)
+        return await Beneficiary.find(id)
     }
 
     async all({ user = {} }) {

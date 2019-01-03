@@ -29,6 +29,7 @@ const providers = [
   // Oumie Business Logic Services
   path.join(__dirname, '..', 'app', '/Services/Oumie/User/UserProvider'),
   path.join(__dirname, '..', 'app', '/Services/Oumie/Beneficiary/BeneficiaryProvider'),
+  path.join(__dirname, '..', 'app', '/Services/Oumie/Soundclip/SoundclipProvider'),
   // Custom Extensions
   path.join(__dirname, '..', 'app', '/Validators/ValidatorExtensions'),
 ]
