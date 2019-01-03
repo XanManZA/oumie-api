@@ -1,5 +1,7 @@
 'use strict'
 
+Logger = use('Logger')
+
 class SoundclipController {
     constructor() {
         // protected
@@ -14,6 +16,17 @@ class SoundclipController {
     //         mobile: beneficiary.mobile
     //     }
     // }
+
+    async create({ request, auth }) {
+        Logger.info(`User loading Soundclip...`, {
+            beneficiary: data.request.beneficiary_id,
+            user: auth.user.id
+        });
+    }
+
+    async play({ params }) {
+        return await this.soundclipService.play(params.id);
+    }
 
     async index({ request, auth }) {
         return (await this.soundclipService.all({

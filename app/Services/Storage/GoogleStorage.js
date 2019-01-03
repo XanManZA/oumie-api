@@ -1,6 +1,7 @@
 'use strict'
 
 const Logger = use('Logger')
+const Helpers = use('Helpers')
 
 class GoogleStorage {
     constructor({ config }) {
@@ -11,7 +12,7 @@ class GoogleStorage {
     /**
      * Get the @google-lib storage bucket
      *
-     * @method
+     * @method storage
      *
      * @return {Object}
      */
@@ -20,12 +21,35 @@ class GoogleStorage {
     }
 
     /**
+     * Download a file
+     *
+     * @method download
+     * 
+     * @param  {String} name
+     *
+     * @return {Buffer}
+     */
+    async download(name) {
+        let response = {};
+
+        try {
+            response = await this.storage().file(name).download();
+            console.log(response[0]);
+            Logger.info(`file downloaded.`);
+        } catch(error) {
+            Logger.error(error);
+        }
+        
+        return response[0];
+    }
+
+    /**
      * Store a file
      *
-     * @method
+     * @method upload
      * 
      * @param  {Object} file
-     * @param  {String} ref
+     * @param  {String} name
      *
      * @return {string}
      */

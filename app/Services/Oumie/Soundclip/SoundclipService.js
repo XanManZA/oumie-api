@@ -1,11 +1,26 @@
 'use strict'
 
 const Soundclip = use('Oumie/Models/Soundclip')
+const Storage = use('Oumie/Storage')
 
 class SoundclipService {
     constructor() {
         // protected
         this.soundclips = use('Oumie/Models/SoundclipRepository');
+    }
+
+    /**
+     * Gets the audio buffer for a Soundclip
+     *
+     * @method play
+     *
+     * @param  {Integer} id
+     * @return {Buffer}
+     */
+    async play(id) {
+        let clip = await Soundclip.find(id);
+
+        return await Storage.download(clip.url);
     }
 
     async get(id) {
@@ -20,13 +35,9 @@ class SoundclipService {
         });
     }
 
-    // async create(data) {
-    //     Logger.info(`Creating new Beneficiary of User...`, {
-    //         name: data.name,
-    //         user: data.user_id
-    //     });
-    //     return await this.soundclips.create(data);
-    // }
+    async create(data) {
+        return await this.soundclips.create(data);
+    }
 }
 
 module.exports = SoundclipService
