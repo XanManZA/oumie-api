@@ -50,4 +50,7 @@ Route.resource('soundclip', 'Oumie/Api/Http/Controllers/Soundclip/SoundclipContr
 	.middleware(new Map([
 		[['index'], ['auth', 'policy-soundclip:index']]
 	]))
+	.validator(new Map([
+		[['soundclip.store'], ['Soundclip/SoundclipCreate']]
+	]))
 Route.get('soundclip/:id/play', 'Oumie/Api/Http/Controllers/Soundclip/SoundclipController.play').middleware('auth')

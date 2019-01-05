@@ -34,7 +34,6 @@ class GoogleStorage {
 
         try {
             response = await this.storage().file(name).download();
-            console.log(response[0]);
             Logger.info(`file downloaded.`);
         } catch(error) {
             Logger.error(error);

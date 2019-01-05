@@ -1,6 +1,6 @@
 'use strict'
 
-Logger = use('Logger')
+const Logger = use('Logger')
 
 class SoundclipController {
     constructor() {
@@ -17,11 +17,15 @@ class SoundclipController {
     //     }
     // }
 
-    async create({ request, auth }) {
+    async store({ request, auth }) {
         Logger.info(`User loading Soundclip...`, {
-            beneficiary: data.request.beneficiary_id,
+            beneficiary: request.input('beneficiary_id'),
             user: auth.user.id
         });
+        return (await this.soundclipService.create({
+            soundclip:  request.file('soundclip'),
+            ...request.all()
+        })).toJSON();
     }
 
     async play({ params }) {
@@ -30,9 +34,15 @@ class SoundclipController {
 
     async index({ request, auth }) {
         return (await this.soundclipService.all({
-            beneficiary_id: request.get().beneficiary_id,
-            user: auth.user,
-            load: request.get().load
+            reduce: {
+                beneficiary_id: request.get().beneficiary_id,
+                user: auth.user,
+                load: request.get().load
+            },
+            order: {
+                field: 'created_at',
+                type: 'desc'
+            }
         })).toJSON();
     }
 }

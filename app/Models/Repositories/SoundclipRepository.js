@@ -4,7 +4,7 @@ const Soundclip = use('Oumie/Models/Soundclip')
 const _ = use('lodash')
 
 class SoundclipRepository {
-    async all(reduce = {}) {
+    async all({ reduce = {}, order = {}}) {
         let query = Soundclip.query();
 
         if (reduce.load && reduce.load.length)
@@ -15,8 +15,9 @@ class SoundclipRepository {
             query.whereHas('beneficiary', q => {
                 q.where('user_id', reduce.user_id);
             });
-        
-
+        if (order.field)
+            query.orderBy(order.field, order.type);
+   
         return await query.fetch();
     }
 
@@ -26,9 +27,9 @@ class SoundclipRepository {
         return await Soundclip.find(_.sample(ids));
     }
 
-    // async create({ name, mobile, user_id }) {
-    //     return await Beneficiary.create({ name, mobile, user_id });
-    // }
+    async create({ url, beneficiary_id }) {
+        return await Soundclip.create({ url, beneficiary_id });
+    }
 }
 
 module.exports = SoundclipRepository

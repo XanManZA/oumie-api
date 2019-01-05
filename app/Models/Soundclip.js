@@ -11,7 +11,19 @@ class Soundclip extends Model {
 
     static get computed() {
         return ['readStatus']
-	}
+    }
+    
+    static boot () {
+        super.boot()
+    
+        /**
+		 * It seems Adonis doesn't fetch default fields on a DB create somehow
+		 */
+		this.addHook('afterCreate', async (userInstance) => {
+            if (userInstance.status == undefined)
+                userInstance.status = userInstance.constructor.STATUS_RECORDED;
+		});
+      }
 	
 	getReadStatus({ status }) {
         switch(status) {
