@@ -1,7 +1,14 @@
 version: "3"
 services:
   api:
+    build: 
+      context: ./
+      dockerfile: prod.dockerfile
+      args:
+        port: ${PORT}
     image: xanderza/oumie-api:latest
+    env_file:
+      - ".env"
     ports:
       - "${PORT}:${PORT}"
     depends_on:
