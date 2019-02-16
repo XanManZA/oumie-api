@@ -14,6 +14,8 @@ services:
     depends_on:
       - redis
       - mysql
+    volumes:
+      - ./:/usr/src/oumienet-api
     deploy:
       replicas: 2
       resources:
