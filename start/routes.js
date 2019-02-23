@@ -41,7 +41,10 @@ Route.group(() => {
 Route.resource('beneficiary', 'Oumie/Api/Http/Controllers/Beneficiary/BeneficiaryController')
 	.apiOnly()
 	.middleware(new Map([
-		[['index', 'show'], ['auth']]
+		[['index', 'show', 'create'], ['auth']]
+	]))
+	.validator(new Map([
+		[['beneficiary.store'], ['Beneficiary/BeneficiaryCreate']]
 	]))
 
 // Soundclips

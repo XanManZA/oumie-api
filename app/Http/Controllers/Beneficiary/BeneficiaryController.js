@@ -1,9 +1,18 @@
 'use strict'
 
+const Logger = use('Logger')
+
 class BeneficiaryController {
     constructor() {
         // protected
         this.beneficiaryService = use('Oumie/Core/BeneficiaryService');
+    }
+
+    async store({ request, auth }) {
+        return (await this.beneficiaryService.create({
+            ...(request.all()),
+            user_id: auth.user.id
+        })).toJSON();
     }
 
     async show({ params }) {
