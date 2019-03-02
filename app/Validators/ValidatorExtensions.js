@@ -12,6 +12,9 @@ class ValidatorExtensions extends ServiceProvider {
 
 		// Sanitizors
 		sanitizor.sanitizeMobile = (value, options) => {
+			if (!Number(value))
+				return value;
+				
 			let number = phoneUtil.parseAndKeepRawInput(value, 'ZA');
 			if (!value || !number)
 				return '';

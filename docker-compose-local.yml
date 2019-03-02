@@ -25,6 +25,22 @@ services:
         condition: on-failure
     networks:
       - webnet
+  mysql_backup:
+    image: databack/mysql-backup
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      - DB_DUMP_FREQ=14400
+      - DB_DUMP_TARGET=/usr/local/backups/mysql
+      - DB_SERVER=mysql
+      - DB_USER=root
+      - DB_PASS=${DB_PASSWORD}
+      - DB_DUMP_KEEP_PERMISSIONS=false
+    volumes:
+      - /home/docker/backups/mysql:/usr/local/backups/mysql
+    networks:
+      - webnet
   mysql:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password

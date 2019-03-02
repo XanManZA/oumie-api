@@ -9,10 +9,13 @@ class BeneficiaryController {
     }
 
     async store({ request, auth }) {
-        return (await this.beneficiaryService.create({
+        let beneficiary = (await this.beneficiaryService.create({
             ...(request.all()),
             user_id: auth.user.id
-        })).toJSON();
+        }));
+        await beneficiary.reload(); // So our computed props are loaded
+
+        return beneficiary;
     }
 
     async show({ params }) {
