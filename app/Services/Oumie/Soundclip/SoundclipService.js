@@ -40,7 +40,7 @@ class SoundclipService {
         if (!data.beneficiary_id)
             throw new Error('`beneficiary_id` properyt needs to be specified on param object to save unique file name.');
 
-        name = `soundclips/` + Date.now() + `_${data.beneficiary_id}.m4a`;
+        name = `soundclips/` + Date.now() + `_${data.beneficiary_id}.mp3`;
         await Storage.upload(soundclip.tmpPath, name);
         data.url = name;
 

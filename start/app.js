@@ -24,6 +24,7 @@ const providers = [
   // Oumie External Services
   path.join(__dirname, '..', 'app', '/Services/Firebase/FirebaseProvider'),
   path.join(__dirname, '..', 'app', '/Services/Storage/StorageProvider'),
+  path.join(__dirname, '..', 'app', '/Services/Voice/VoiceProvider'),
   // Oumie Data Objects
   path.join(__dirname, '..', 'app', '/Models/Repositories/RepositoryProvider'),
   // Oumie Business Logic Services

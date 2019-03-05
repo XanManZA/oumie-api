@@ -16,5 +16,12 @@ module.exports = {
         storage: {
             bucket: Env.get('GOOGLE_BUCKET')
         }
+    },
+
+    nexmo: {
+        apiKey: Env.get('NEXMO_KEY'),
+        apiSecret: Env.get('NEXMO_SECRET'),
+        applicationID: Env.get('NEXMO_APP_ID'),
+        privateKey: Env.get('NEXMO_PRIVATE_KEY')
     }
 }
