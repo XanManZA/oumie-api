@@ -22,6 +22,8 @@ module.exports = {
         apiKey: Env.get('NEXMO_KEY'),
         apiSecret: Env.get('NEXMO_SECRET'),
         applicationID: Env.get('NEXMO_APP_ID'),
-        privateKey: Env.get('NEXMO_PRIVATE_KEY')
+        privateKey: `${Helpers.appRoot()}/${Env.get('NEXMO_PRIVATE_KEY')}`,
+        number: Env.get('NEXMO_NUMBER'),
+        answerUrl: Env.get('NEXMO_ANSWER_URL')
     }
 }

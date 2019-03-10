@@ -1,18 +1,40 @@
 'use strict'
 
-const Logger = use('Logger')
-const Helpers = use('Helpers')
 const Nexmo = use('nexmo');
+const Promise = use('bluebird');
 
 class NexmoVoice {
     constructor({ config }) {
+        this.voiceName = 'Emma';
+        this.ncco = [];
         this.config = config;
-        this.client = new Nexmo({
+        this.client = Promise.promisifyAll(new Nexmo({
             apiKey: this.config.get(`services.nexmo.apiKey`),
             apiSecret: this.config.get(`services.nexmo.apiSecret`),
             applicationId: this.config.get(`services.nexmo.applicationID`),
             privateKey: this.config.get(`services.nexmo.privateKey`)
+        }).calls);
+    }
+
+    addFilestreamStep({ url }) {
+        this.ncco.push({
+            action: 'stream',
+            streamUrl: [url],
+            loop: 2
         });
+
+        return this;
+    }
+
+    addTextVoiceStep({ text }) {
+        this.ncco.push({
+            action: 'talk',
+            text,
+            voiceName: this.voiceName,
+            loop: 1
+        });
+
+        return this;
     }
 
     /**
@@ -20,12 +42,29 @@ class NexmoVoice {
      *
      * @method call
      * 
-     * @param  {Object} file
+     * @param  {Object} number
+     * @param  {Function} callback
      *
      * @return {Object}
      */
-    call() {
-        return this.client.bucket(this.config.get(`services.google.storage.bucket`));
+    async call({ number }, callback) {
+        let callData = {
+            to: [{
+                type: 'phone',
+                number
+            }],
+            from: {
+                type: 'phone',
+                number: this.config.get('services.nexmo.number')
+            }
+        };
+
+        if (this.ncco.length)
+            callData.ncco = this.ncco;
+        else
+            callData.answer_url = [this.config.get('services.nexmo.answerUrl')];
+
+        return await this.client.createAsync(callData, callback);
     }
 }
 
