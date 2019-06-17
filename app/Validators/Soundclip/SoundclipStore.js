@@ -2,8 +2,8 @@
 
 const { formatters } = use('Validator')
 
-class SoundclipCreate {
-	get formatter () {
+class SoundclipStore {
+	get formatter() {
 		return formatters.JsonApi
 	}
 
@@ -14,7 +14,7 @@ class SoundclipCreate {
 	get rules () {
 		return {
             beneficiary_id: 'required|exists:beneficiaries,id',
-            soundclip: 'file|file_types:m4a,mp4|file_size:5mb'
+            soundclip: 'file|file_types:wav,mpeg|file_size:5mb'
 		}
 	}
 
@@ -24,4 +24,4 @@ class SoundclipCreate {
 	}
 }
 
-module.exports = SoundclipCreate
+module.exports = SoundclipStore

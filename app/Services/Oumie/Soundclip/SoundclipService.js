@@ -2,6 +2,8 @@
 
 const Soundclip = use('Oumie/Models/Soundclip')
 const Storage = use('Oumie/Storage')
+const Env = use('Env')
+const Logger = use('Logger')
 
 class SoundclipService {
     constructor() {
@@ -31,20 +33,26 @@ class SoundclipService {
         return await this.soundclips.all(data);
     }
 
-    async create(data) {
+    async create({ soundclip, beneficiary_id, soundclipStream }) {
         let name = '';
-        let soundclip = data.soundclip;
 
-        if (!soundclip)
-            throw new Error('Soundclip file needs to be included on Soundclip create using `soundclip` property on param object.');
-        if (!data.beneficiary_id)
-            throw new Error('`beneficiary_id` properyt needs to be specified on param object to save unique file name.');
+        if (!soundclip && !soundclipStream)
+            throw new Error('Soundclip file needs to be included on Soundclip create using `soundclip` or `soundclipStream` property on param object.');
+        if (!beneficiary_id)
+            throw new Error('`beneficiary_id` property needs to be specified on param object to save unique file name.');
+        
+        name = `soundclips/` + Date.now() + `_${beneficiary_id}.wav`;
+        await Storage.upload({
+            file: soundclip.tmpPath,
+            name,
+            type: 'audio/wav'
+        });
 
-        name = `soundclips/` + Date.now() + `_${data.beneficiary_id}.mp3`;
-        await Storage.upload(soundclip.tmpPath, name);
-        data.url = name;
-
-        return await this.soundclips.create(data);
+        // return await this.soundclips.create({
+        //     soundclip,
+        //     beneficiary_id,
+        //     url: name,
+        // });
     }
 }
 

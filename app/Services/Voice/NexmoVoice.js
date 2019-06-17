@@ -5,7 +5,7 @@ const Promise = use('bluebird');
 
 class NexmoVoice {
     constructor({ config }) {
-        this.voiceName = 'Emma';
+        this.voiceName = 'Russel';
         this.ncco = [];
         this.config = config;
         this.client = Promise.promisifyAll(new Nexmo({

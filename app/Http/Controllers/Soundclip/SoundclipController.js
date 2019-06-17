@@ -4,7 +4,6 @@ const Logger = use('Logger')
 
 class SoundclipController {
     constructor() {
-        // protected
         this.soundclipService = use('Oumie/Core/SoundclipService');
     }
 
@@ -22,9 +21,20 @@ class SoundclipController {
             beneficiary: request.input('beneficiary_id'),
             user: auth.user.id
         });
+        // use validator here
+        // Logger.debug(request.multipart.all());
+        // request.multipart.file('soundclip', {}, async (file) => {
+        //     return (await this.soundclipService.create({
+        //         soundclipStream: file.stream,
+        //         ...request.all()
+        //     })).toJSON();
+        // });
+
+        // return await request.multipart.process();
         return (await this.soundclipService.create({
             soundclip:  request.file('soundclip'),
-            ...request.all()
+            ...request.all(),
+            request
         })).toJSON();
     }
 
